@@ -1,8 +1,13 @@
-import React from 'react'
-import { useLoaderData } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 
 function Github() {
-  const data = useLoaderData()
+  const [data, setData] = useState({})
+
+  useEffect(() =>{
+    fetch(`https://api.github.com/users/maheshkrishnam`)
+    .then(response => response.json())
+    .then(response => setData(response))
+  }, [])
 
   return (
     <div className="flex justify-center">
@@ -18,9 +23,4 @@ function Github() {
   )
 }
 
-export default Github
-
-export const githubInfoLoader = async () => {
-  const response = await fetch('https://api.github.com/users/maheshkrishnam')
-  return response.json()
-}
+export default Github;
